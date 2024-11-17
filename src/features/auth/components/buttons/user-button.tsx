@@ -14,7 +14,11 @@ import { DottedSeparator } from '@/components/separators'
 import React, { useCallback } from 'react'
 import { toast } from 'sonner'
 
-export function UserButton() {
+type Props = {
+  align?: 'start' | 'center' | 'end'
+}
+
+export function UserButton({ align = 'end' }: Props) {
   const { data: user, isLoading } = useCurrent()
   const { mutate: logout } = useLogout()
 
@@ -46,7 +50,7 @@ export function UserButton() {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        align="end"
+        align={align}
         side="bottom"
         className="w-60"
         sideOffset={10}
