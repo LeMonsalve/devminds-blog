@@ -42,6 +42,7 @@ export function SignUpCard() {
   const onFormSubmit = useCallback(
     (values: RegisterSchema) => {
       mutate({ json: values })
+      console.log(values)
     },
     [mutate],
   )
