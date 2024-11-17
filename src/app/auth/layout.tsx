@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 
 export const metadata: Metadata = {
-  title: 'LeMon Jiry - Auth',
+  title: 'DevMinds - Auth',
 }
 
 export type Props = {
