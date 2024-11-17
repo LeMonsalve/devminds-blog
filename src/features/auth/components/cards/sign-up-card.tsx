@@ -33,9 +33,9 @@ export function SignUpCard() {
   const form = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      name: 'Juan José Monsalve Orozco',
-      email: 'monsalvejuanorozco@gmail.com',
-      password: '12345678',
+      name: '',
+      email: '',
+      password: '',
     },
   })
 
