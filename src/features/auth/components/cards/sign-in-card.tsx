@@ -1,14 +1,8 @@
 'use client'
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { DottedSeparator } from '@/components/separators'
-import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { FcGoogle } from 'react-icons/fc'
-import { FaGithub } from 'react-icons/fa6'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { loginSchema } from '@/features/auth/schemas'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Form,
   FormControl,
@@ -16,18 +10,28 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form'
-import React, { useCallback } from 'react'
+import { Input } from '@/components/ui/input'
 import { useLogin } from '@/features/auth/api'
+import { loginSchema } from '@/features/auth/schemas'
 import { LoginSchema } from '@/features/auth/types'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useCallback } from 'react'
+import { useForm } from 'react-hook-form'
+import { FaGithub } from 'react-icons/fa6'
+import { FcGoogle } from 'react-icons/fc'
 
-export function SignInCard() {
+type Props = {
+  defaultValues?: LoginSchema
+}
+
+export function SignInCard({ defaultValues }: Props) {
   const { mutate, isPending } = useLogin()
 
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: 'monsalvejuanorozco@gmail.com',
-      password: '12345678',
+      email: defaultValues?.email || '',
+      password: defaultValues?.password || '',
     },
   })
 
