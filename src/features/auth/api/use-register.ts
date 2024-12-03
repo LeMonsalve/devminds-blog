@@ -1,6 +1,7 @@
-import { InferRequestType, InferResponseType } from 'hono'
 import { client } from '@/lib/rpc'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { InferRequestType, InferResponseType } from 'hono'
+import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 type ResponseType = InferResponseType<
@@ -9,13 +10,13 @@ type ResponseType = InferResponseType<
 type RequestType = InferRequestType<(typeof client.api.auth.register)['$post']>
 
 export function useRegister() {
+  const router = useRouter()
+  const queryClient = useQueryClient()
   return useMutation<ResponseType, Error, RequestType>({
     mutationFn: async ({ json }) => {
-      console.log('Use Register: ', json)
       const response = await client.api.auth.register.$post({ json })
 
       if (!response.ok) {
-        console.error('Use Register: ', response)
         throw new Error(response.statusText)
       }
 
@@ -23,6 +24,8 @@ export function useRegister() {
     },
     onSuccess: () => {
       toast.success('Account created successfully')
+      queryClient.invalidateQueries({ queryKey: ['current'] })
+      router.push('/')
     },
     onError: () => {
       toast.error('Failed to create account')
