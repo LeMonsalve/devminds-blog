@@ -1,2 +1,1 @@
-export * from './new-post-sheet';
-
+export * from './new-post-sheet'

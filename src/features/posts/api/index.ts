@@ -1,1 +1,1 @@
-export * from './use-create-post';
+export * from './use-create-post'
