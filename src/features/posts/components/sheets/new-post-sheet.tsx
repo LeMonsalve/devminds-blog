@@ -8,11 +8,16 @@ import {
 import { useCreatePost } from '@/features/posts/api'
 import { useNewPost } from '@/features/posts/hooks/use-new-post'
 import { chooseRandom } from '@/lib/utils'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { postExamples } from '../../data'
 import { CreatePostSchema } from '../../types'
 import { PostForm } from '../forms/post-form'
 
 export function NewPostSheet() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+
   const isDevelopment = process.env.NEXT_PUBLIC_ENVIRONMENT === 'development'
   const defaultValues = isDevelopment ? chooseRandom(postExamples) : undefined
 
@@ -30,8 +35,15 @@ export function NewPostSheet() {
     )
   }
 
+  const handleOpenChange = () => {
+    const params = new URLSearchParams(searchParams)
+    params.delete('create')
+    router.replace(`${pathname}?${params.toString()}`)
+    onClose()
+  }
+
   return (
-    <Sheet open={isOpen} onOpenChange={onClose}>
+    <Sheet open={isOpen} onOpenChange={handleOpenChange}>
       <SheetContent className="space-y-4">
         <SheetHeader>
           <SheetTitle>New Post</SheetTitle>

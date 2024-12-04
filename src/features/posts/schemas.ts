@@ -4,7 +4,7 @@ export const createPostSchema = z.object({
   title: z
     .string()
     .min(5, 'Minimum 5 characters required')
-    .max(40, 'Maximum 40 characters allowed'),
+    .max(55, 'Maximum 55 characters allowed'),
   preDescription: z
     .string()
     .min(10, 'Minimum 10 characters required')
