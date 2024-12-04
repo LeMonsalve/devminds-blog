@@ -1,5 +1,7 @@
-import { LogOut, ThumbsUp, MessageCircle, Share2 } from 'lucide-react'
+import { LogOut, MessageCircle, Share2, ThumbsUp } from 'lucide-react'
 
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -8,10 +10,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Badge } from '@/components/ui/badge'
-import { getCurrent } from '@/features/auth/queries'
 import { UserButton } from '@/features/auth/components'
+import { getCurrent } from '@/features/auth/queries'
 
 const posts = [
   {

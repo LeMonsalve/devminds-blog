@@ -1,8 +1,9 @@
+import { QueryProvider } from '@/components/providers'
+import { SheetProvider } from '@/components/providers/sheet-provider'
+import { Toaster } from '@/components/ui/sonner'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
-import { QueryProvider } from '@/components/providers'
-import { Toaster } from '@/components/ui/sonner'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -32,6 +33,7 @@ export default function RootLayout({
       >
         <QueryProvider>
           {children}
+          <SheetProvider />
           <Toaster />
         </QueryProvider>
       </body>
