@@ -2,7 +2,9 @@ import { createPostSchema } from '@/features/posts/schemas'
 import { sessionMiddleware } from '@/lib/session-middleware'
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
-import { Client, Databases, ID, Query } from 'node-appwrite'
+import { Client, Databases, ID, Query, Users } from 'node-appwrite'
+import { mapToPosts } from '../mappers'
+import { Author } from '../types'
 
 export const postsApp = new Hono()
   .post(
@@ -46,7 +48,10 @@ export const postsApp = new Hono()
     const client = new Client().setEndpoint(endpoint!).setProject(projectId!)
     const databases = new Databases(client)
 
-    const posts = await databases.listDocuments(dbId!, postsId!)
+    const postList = await databases.listDocuments(dbId!, postsId!, [
+      Query.orderDesc('$createdAt'),
+    ])
+    const posts = mapToPosts(postList.documents)
 
     return c.json({ data: posts })
   })
@@ -59,9 +64,34 @@ export const postsApp = new Hono()
     const user = c.get('user')
     const databases = c.get('databases')
 
-    const posts = await databases.listDocuments(dbId!, postsId!, [
+    const postList = await databases.listDocuments(dbId!, postsId!, [
       Query.equal('userId', user.$id),
     ])
+    const posts = mapToPosts(postList.documents)
 
     return c.json({ data: posts })
+  })
+  .get('/author/:id', async (c) => {
+    const id = c.req.param('id')
+    const {
+      NEXT_PUBLIC_APPWRITE_ENDPOINT: endpoint,
+      NEXT_PUBLIC_APPWRITE_PROJECT: projectId,
+      NEXT_PUBLIC_APPWRITE_API_KEY: apiKey,
+    } = process.env
+
+    const client = new Client()
+      .setEndpoint(endpoint!)
+      .setProject(projectId!)
+      .setKey(apiKey!)
+
+    const users = new Users(client)
+
+    const user = await users.get(id)
+    const author: Author = {
+      $id: user.$id,
+      name: user.name,
+      email: user.email,
+    }
+
+    return c.json({ data: author })
   })
