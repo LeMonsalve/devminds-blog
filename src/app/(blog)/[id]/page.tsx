@@ -22,16 +22,15 @@ import { VerifiedIcon } from 'lucide-react'
 import { redirect } from 'next/navigation'
 
 type Props = {
-  params: {
-    id: string
-  }
+  params: Promise<{ id: string }>
 }
 
 export default async function PostPage({ params }: Props) {
-  const isValidId = postIdSchema.safeParse(params.id).success
+  const { id } = await params
+  const isValidId = postIdSchema.safeParse(id).success
   if (!isValidId) return redirect('/')
 
-  const post = await getPost(params.id)
+  const post = await getPost(id)
   if (!post) return redirect('/')
 
   const author = await getAuthor(post.userId)
