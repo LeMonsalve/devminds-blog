@@ -12,7 +12,7 @@ export const createPostSchema = z.object({
   fullDescription: z
     .string()
     .min(20, 'Minimum 20 characters required')
-    .max(1000, 'Maximum 1000 characters allowed'),
+    .max(6000, 'Maximum 6000 characters allowed'),
 })
 
 export const postIdSchema = z.string().min(10)

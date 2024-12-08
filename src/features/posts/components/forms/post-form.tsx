@@ -101,7 +101,7 @@ export function PostForm({
               <FormLabel>Full Description</FormLabel>
               <FormControl>
                 <Textarea
-                  maxLength={1000}
+                  maxLength={6000}
                   className="h-96 resize-none"
                   disabled={disabled}
                   placeholder={example.fullDescription}
