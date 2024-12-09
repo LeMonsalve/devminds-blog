@@ -1,18 +1,21 @@
 import { client } from '@/lib/rpc'
 import { useQuery } from '@tanstack/react-query'
 
-export function useGetMyPosts() {
+export function useGetPost(id?: string) {
   return useQuery({
-    queryKey: ['my-posts'],
+    enabled: !!id,
+    queryKey: ['posts', { id }],
     queryFn: async () => {
-      const response = await client.api.posts['by-user'].$get()
+      const postId = id as string
+      const response = await client.api.posts[':id'].$get({
+        param: { id: postId },
+      })
 
       if (!response.ok) {
         throw new Error(response.statusText)
       }
 
       const { data } = await response.json()
-
       return data
     },
   })

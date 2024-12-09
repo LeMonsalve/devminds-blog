@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const createPostSchema = z.object({
+export const postFormSchema = z.object({
   title: z
     .string()
     .min(5, 'Minimum 5 characters required')
@@ -14,5 +14,9 @@ export const createPostSchema = z.object({
     .min(20, 'Minimum 20 characters required')
     .max(6000, 'Maximum 6000 characters allowed'),
 })
+
+export const createPostSchema = postFormSchema.required()
+
+export const updatePostSchema = createPostSchema.partial()
 
 export const postIdSchema = z.string().min(10)

@@ -11,31 +11,23 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { chooseRandom } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Trash } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { postExamples } from '../../data'
-import { createPostSchema } from '../../schemas'
-import { CreatePostSchema } from '../../types'
+import { postFormSchema } from '../../schemas'
+import { PostFormSchema } from '../../types'
 
 type Props = {
-  onSubmit: (values: CreatePostSchema) => void
-  defaultValues?: CreatePostSchema
-  onDelete?: () => void
+  onSubmit: (values: PostFormSchema) => void
+  defaultValues?: PostFormSchema
   disabled?: boolean
   id?: string
 }
 
-const example = chooseRandom<CreatePostSchema>(postExamples)
+const example = chooseRandom<PostFormSchema>(postExamples)
 
-export function PostForm({
-  onSubmit,
-  defaultValues,
-  onDelete,
-  disabled,
-  id,
-}: Props) {
-  const form = useForm<CreatePostSchema>({
-    resolver: zodResolver(createPostSchema),
+export function PostForm({ onSubmit, defaultValues, disabled, id }: Props) {
+  const form = useForm<PostFormSchema>({
+    resolver: zodResolver(postFormSchema),
     defaultValues: {
       title: defaultValues?.title || '',
       preDescription: defaultValues?.preDescription || '',
@@ -43,12 +35,8 @@ export function PostForm({
     },
   })
 
-  const handleSubmit = (values: CreatePostSchema) => {
+  const handleSubmit = (values: PostFormSchema) => {
     onSubmit(values)
-  }
-
-  const handleDelete = () => {
-    onDelete?.()
   }
 
   return (
@@ -115,18 +103,6 @@ export function PostForm({
         <Button className="w-full" disabled={disabled}>
           {id ? 'Update Post' : 'Create Post'}
         </Button>
-        {!!id && (
-          <Button
-            type="button"
-            variant="outline"
-            className="w-full"
-            onClick={handleDelete}
-            disabled={disabled}
-          >
-            <Trash size={16} />
-            <span className="ml-2">Delete Post</span>
-          </Button>
-        )}
       </form>
     </Form>
   )

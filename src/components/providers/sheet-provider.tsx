@@ -1,6 +1,6 @@
 'use client'
 
-import { NewPostSheet } from '@/features/posts/components/sheets'
+import { EditPostSheet, NewPostSheet } from '@/features/posts/components/sheets'
 import { useEffect, useState } from 'react'
 
 export function SheetProvider() {
@@ -15,6 +15,7 @@ export function SheetProvider() {
   return (
     <>
       <NewPostSheet />
+      <EditPostSheet />
     </>
   )
 }
