@@ -20,6 +20,7 @@ import { postIdSchema } from '@/features/posts/schemas'
 import { cn } from '@/lib/utils'
 import { VerifiedIcon } from 'lucide-react'
 import { redirect } from 'next/navigation'
+import ReactMarkdown from 'react-markdown'
 
 type Props = {
   params: Promise<{ id: string }>
@@ -64,7 +65,12 @@ export default async function PostPage({ params }: Props) {
         </div>
       </CardHeader>
       <CardContent>
-        <p>{post.fullDescription}</p>
+        <ReactMarkdown
+          className="prose dark:prose-invert"
+          components={reactReadmeStyles}
+        >
+          {post.fullDescription}
+        </ReactMarkdown>
       </CardContent>
       <CardFooter className="flex justify-center gap-x-6">
         <SharePostButton
@@ -91,4 +97,65 @@ function VerifiedBadge() {
       </Tooltip>
     </TooltipProvider>
   )
+}
+
+const reactReadmeStyles = {
+  p: ({ ...props }) => <p className="mb-4 text-foreground" {...props} />,
+  h1: ({ ...props }) => (
+    <h1
+      className="text-3xl font-bold text-foreground mb-6 pb-2 border-b border-border"
+      {...props}
+    />
+  ),
+  h2: ({ ...props }) => (
+    <h2
+      className="text-2xl font-semibold text-foreground mb-4 mt-6 pb-1 border-b border-border"
+      {...props}
+    />
+  ),
+  h3: ({ ...props }) => (
+    <h3
+      className="text-xl font-semibold text-foreground mb-3 mt-4"
+      {...props}
+    />
+  ),
+  ul: ({ ...props }) => (
+    <ul className="list-disc list-outside pl-6 mb-4 space-y-2" {...props} />
+  ),
+  ol: ({ ...props }) => (
+    <ol className="list-decimal list-outside pl-6 mb-4 space-y-2" {...props} />
+  ),
+  li: ({ ...props }) => <li className="text-foreground" {...props} />,
+  a: ({ ...props }) => (
+    <a
+      className="text-primary hover:text-primary/80 underline transition-colors duration-200"
+      target="_blank"
+      rel="noopener noreferrer"
+      {...props}
+    />
+  ),
+  blockquote: ({ ...props }) => (
+    <blockquote
+      className="border-l-4 border-primary pl-4 py-2 my-4 italic text-muted-foreground bg-secondary/30"
+      {...props}
+    />
+  ),
+  code: ({ ...props }) => (
+    <code
+      className="bg-secondary text-secondary-foreground rounded px-1 py-0.5 text-sm font-mono"
+      {...props}
+    />
+  ),
+  pre: ({ ...props }) => (
+    <pre
+      className="bg-secondary text-secondary-foreground rounded-lg p-4 overflow-x-auto mb-4"
+      {...props}
+    />
+  ),
+  em: ({ ...props }) => (
+    <em
+      className="italic text-foreground/80"
+      {...props}
+    />
+  ),
 }
