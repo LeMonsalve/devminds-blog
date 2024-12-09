@@ -1,26 +1,26 @@
-"use client";
+'use client'
 
-import { MyPostsParamsVerifier } from "@/components/my-posts-params-verfier";
-import { useGetMyPosts } from "@/features/posts/api/use-get-my-posts";
-import { Suspense } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Card, CardDescription, CardHeader } from "@/components/ui/card";
-import { MyPostCard } from "@/features/posts/components/cards/my-post-card";
+import { MyPostsParamsVerifier } from '@/components/my-posts-params-verfier'
+import { useGetMyPosts } from '@/features/posts/api/use-get-my-posts'
+import { Suspense } from 'react'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Card, CardDescription, CardHeader } from '@/components/ui/card'
+import { MyPostCard } from '@/features/posts/components/cards/my-post-card'
 import UserCard, {
   UserCardSkeleton,
-} from "@/features/posts/components/cards/user-card";
-import { redirect } from "next/navigation";
+} from '@/features/posts/components/cards/user-card'
+import { redirect } from 'next/navigation'
 
 export default function MyPostsFeed() {
-  const postsQuery = useGetMyPosts();
-  const posts = postsQuery?.data?.data || [];
+  const postsQuery = useGetMyPosts()
+  const posts = postsQuery?.data?.data || []
 
-  const handleEditPost = (postId: string) => {
-    // TODO: Abrir pestaña de edición con este postId
-  };
+  const handleEditPost = () => {
+    // TODO: Abrir pestaña de edición
+  }
 
-  if (postsQuery.isError) return redirect("/auth/sign-in");
-  if (postsQuery.isLoading) return <PostsFeedSkeleton />;
+  if (postsQuery.isError) return redirect('/auth/sign-in')
+  if (postsQuery.isLoading) return <PostsFeedSkeleton />
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -36,7 +36,7 @@ export default function MyPostsFeed() {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
 function PostsFeedSkeleton() {
@@ -59,5 +59,5 @@ function PostsFeedSkeleton() {
         ))}
       </div>
     </div>
-  );
+  )
 }

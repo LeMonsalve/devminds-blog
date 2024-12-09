@@ -1,20 +1,20 @@
-"use client";
+'use client'
 
-import { Card, CardContent } from "@/components/ui/card";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Skeleton } from "@/components/ui/skeleton";
-import { createAvatarFallback } from "@/features/auth/utils";
-import { useCurrent } from "@/features/auth/api";
+import { Card, CardContent } from '@/components/ui/card'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Skeleton } from '@/components/ui/skeleton'
+import { createAvatarFallback } from '@/features/auth/utils'
+import { useCurrent } from '@/features/auth/api'
 
 export default function UserCard() {
-  const { data: user, isLoading } = useCurrent();
+  const { data: user, isLoading } = useCurrent()
 
-  if (isLoading) return <UserCardSkeleton />;
+  if (isLoading) return <UserCardSkeleton />
 
-  if (!user) return null;
+  if (!user) return null
 
-  const { name, email } = user;
-  const avatarFallback = createAvatarFallback(name, email);
+  const { name, email } = user
+  const avatarFallback = createAvatarFallback(name, email)
 
   return (
     <Card>
@@ -30,7 +30,7 @@ export default function UserCard() {
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }
 
 export function UserCardSkeleton() {
@@ -44,5 +44,5 @@ export function UserCardSkeleton() {
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }
