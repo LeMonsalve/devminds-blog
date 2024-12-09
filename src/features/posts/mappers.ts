@@ -2,12 +2,13 @@ import { Models } from 'node-appwrite'
 import { Post } from './types'
 
 export function mapToPost(data: Models.Document): Post {
+  const { $id, title, preDescription, fullDescription, userId } = data
   return {
-    $id: data.$id,
-    title: data.title,
-    preDescription: data.preDescription,
-    fullDescription: data.fullDescription,
-    userId: data.userId,
+    $id,
+    title,
+    preDescription,
+    fullDescription,
+    userId,
   }
 }
 

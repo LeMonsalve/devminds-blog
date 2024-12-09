@@ -1,3 +1,5 @@
+import { AUTH_COOKIE } from '@/features/auth/constants'
+import { getCookie } from 'hono/cookie'
 import { createMiddleware } from 'hono/factory'
 import {
   Account,
@@ -10,8 +12,6 @@ import {
   type Storage as StorageType,
   type Users as UsersType,
 } from 'node-appwrite'
-import { AUTH_COOKIE } from '@/features/auth/constants'
-import { getCookie } from 'hono/cookie'
 
 type AdditionalContext = {
   Variables: {

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { createPostSchema } from './schemas'
+import { createPostSchema, updatePostSchema } from './schemas'
 
 export type Post = {
   $id: string
@@ -16,3 +16,7 @@ export type Author = {
 }
 
 export type CreatePostSchema = z.infer<typeof createPostSchema>
+
+export type UpdatePostSchema = z.infer<typeof updatePostSchema>
+
+export type PostFormSchema = CreatePostSchema

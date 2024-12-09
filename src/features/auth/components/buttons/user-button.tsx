@@ -10,9 +10,10 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { useCurrent, useLogout } from '@/features/auth/api'
 import { createAvatarFallback } from '@/features/auth/utils'
-import { LoaderIcon, LogOutIcon } from 'lucide-react'
+import { LoaderIcon, LogOutIcon, FileTextIcon } from 'lucide-react'
 import { useCallback } from 'react'
 import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
 type Props = {
   align?: 'start' | 'center' | 'end'
@@ -21,11 +22,16 @@ type Props = {
 export function UserButton({ align = 'end' }: Props) {
   const { data: user, isLoading } = useCurrent()
   const { mutate: logout } = useLogout()
+  const router = useRouter()
 
   const onLogout = useCallback(() => {
     toast.info('Logging out...')
     logout()
   }, [logout])
+
+  const onMyPosts = useCallback(() => {
+    router.push('/my-posts')
+  }, [router])
 
   if (isLoading) {
     return (
@@ -68,10 +74,17 @@ export function UserButton({ align = 'end' }: Props) {
         </div>
         <DottedSeparator className="mb-1" />
         <DropdownMenuItem
+          onClick={onMyPosts}
+          className="h-10 flex items-center justify-center text-blue-700 font-medium cursor-pointer"
+        >
+          <FileTextIcon className="size-4 mr-2" />
+          My Posts
+        </DropdownMenuItem>
+        <DropdownMenuItem
           onClick={onLogout}
           className="h-10 flex items-center justify-center text-amber-700 font-medium cursor-pointer"
         >
-          <LogOutIcon className="siz-4 mr-2" />
+          <LogOutIcon className="size-4 mr-2" />
           Log Out
         </DropdownMenuItem>
       </DropdownMenuContent>
