@@ -17,8 +17,8 @@ export function useLogin() {
     },
     onSuccess: () => {
       toast.success('Logged in successfully')
-      queryClient.invalidateQueries({ queryKey: ['current'] }).then()
       router.push('/')
+      queryClient.invalidateQueries({ queryKey: ['current'] }).then()
     },
     onError: () => {
       toast.error('Invalid email or password')

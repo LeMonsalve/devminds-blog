@@ -10,10 +10,10 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { useCurrent, useLogout } from '@/features/auth/api'
 import { createAvatarFallback } from '@/features/auth/utils'
-import { LoaderIcon, LogOutIcon, FileTextIcon } from 'lucide-react'
+import { FileTextIcon, LoaderIcon, LogOutIcon } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import { toast } from 'sonner'
-import { useRouter } from 'next/navigation'
 
 type Props = {
   align?: 'start' | 'center' | 'end'
@@ -75,7 +75,7 @@ export function UserButton({ align = 'end' }: Props) {
         <DottedSeparator className="mb-1" />
         <DropdownMenuItem
           onClick={onMyPosts}
-          className="h-10 flex items-center justify-center text-blue-700 font-medium cursor-pointer"
+          className="h-10 flex items-center justify-center font-medium cursor-pointer"
         >
           <FileTextIcon className="size-4 mr-2" />
           My Posts
