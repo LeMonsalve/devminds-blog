@@ -10,7 +10,7 @@ type RequestType = InferRequestType<
 >
 
 export function useGetMyPosts() {
-  return useQuery<ResponseType, Error, RequestType>({
+  return useQuery({
     queryKey: ['my-posts'],
     queryFn: async () => {
       const response = await client.api.posts['by-user'].$get()
