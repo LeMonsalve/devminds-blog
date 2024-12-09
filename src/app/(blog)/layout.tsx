@@ -12,16 +12,26 @@ type Props = {
 }
 
 const popularTopics = [
-  'React',
-  'Node.js',
-  'TypeScript',
-  'Next.js',
-  'TailwindCSS',
-  'GraphQL',
-  'Docker',
-  'AWS',
-  'Hono',
-  'AppWrite',
+  'Machine Learning',
+  'Deep Learning',
+  'Natural Language Processing',
+  'Computer Vision',
+  'Reinforcement Learning',
+  'PyTorch',
+  'TensorFlow',
+  'OpenAI API',
+  'Hugging Face',
+  'Stable Diffusion',
+  'ChatGPT API',
+  'AutoML',
+  'LangChain',
+  'Transformers',
+  'ONNX',
+  'Neural Networks',
+  'AI Ethics',
+  'Explainable AI (XAI)',
+  'Edge AI',
+  'AI in Robotics',
 ]
 
 export default async function BlogLayout({ children }: Props) {
