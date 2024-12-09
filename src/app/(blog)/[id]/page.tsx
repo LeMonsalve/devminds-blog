@@ -152,10 +152,5 @@ const reactReadmeStyles = {
       {...props}
     />
   ),
-  em: ({ ...props }) => (
-    <em
-      className="italic text-foreground/80"
-      {...props}
-    />
-  ),
+  em: ({ ...props }) => <em className="italic text-foreground/80" {...props} />,
 }
